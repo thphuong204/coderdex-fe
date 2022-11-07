@@ -126,6 +126,18 @@ export default function PokeList() {
         <Container maxWidth="lg" sx={styles.container}>
             <Box className={`filters ${expanded ? 'filters-expanded' : 'filters-collapsed'}`} sx={{ ...styles.search, display: 'flex', justifyContent: 'center' }}>
                 <Grid maxWidth="md" className="filter-types" container spacing={2} sx={{ pb: 5 }}>
+                    <Grid   sx={{ width:"100%", display: 'flex', justifyContent: 'center' }}>
+                        <Button 
+                        onClick ={() => dispatch(typeQuery(""))}
+                        sx= {{
+                            color:"#fff",
+                            fontWeight:"bold",
+                            backgroundColor:"#729f3f"
+                        }}
+                        >Clear Type
+                        </Button>
+                    </Grid>
+
                     {pokemonTypes.map((item) => (
                         <Grid item key={item} xs={6} sm={4} md={3} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <PokeType
