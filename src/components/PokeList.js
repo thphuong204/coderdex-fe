@@ -8,7 +8,7 @@ import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage, typeQuery } from '../features/pokemons/pokemonSlice';
+import { changePage, typeQuery ,clearAllPokemon, getPokemons} from '../features/pokemons/pokemonSlice';
 import { Link } from 'react-router-dom';
 import { pokemonTypes } from '../pokemonTypes';
 const styles = {
@@ -117,9 +117,9 @@ export default function PokeList() {
     const [expanded, setExpanded] = useState(false);
     const [next, setNext] = useState(false);
     const dispatch = useDispatch();
-    const { pokemons } = useSelector((state) => state.pokemons);
+    const { pokemons,page} = useSelector((state) => state.pokemons);
     const handleChangePage = () => {
-        dispatch(changePage());
+        dispatch(changePage(page +1));
     };
 
     return (
@@ -128,13 +128,16 @@ export default function PokeList() {
                 <Grid maxWidth="md" className="filter-types" container spacing={2} sx={{ pb: 5 }}>
                     <Grid   sx={{ width:"100%", display: 'flex', justifyContent: 'center' }}>
                         <Button 
-                        onClick ={() => dispatch(typeQuery(""))}
+                        onClick ={() => {
+                            dispatch(clearAllPokemon());
+                            dispatch(getPokemons({ page}));
+                        }}
                         sx= {{
                             color:"#fff",
                             fontWeight:"bold",
                             backgroundColor:"#729f3f"
                         }}
-                        >Clear Type
+                        >Clear Search
                         </Button>
                     </Grid>
 
@@ -189,8 +192,8 @@ export default function PokeList() {
                                         </CardContent>
                                         <CardActions disableSpacing sx={{ padding: '1rem' }}>
                                             <Stack direction="row" spacing={1}>
-                                                {pokemon.types.map((type) => (
-                                                    <PokeType type={type} key={type} />
+                                                {pokemon.types.map((type,i) => (
+                                                    <PokeType type={type} key={i} />
                                                 ))}
                                             </Stack>
                                         </CardActions>
