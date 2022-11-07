@@ -95,6 +95,12 @@ export const pokemonSlice = createSlice({
         searchQuery: (state, action) => {
             state.search = action.payload;
         },
+        clearAllPokemon: (state) => {
+            state.pokemons=[];
+            state.page = 1;
+            state.type = "";
+            state.search = "";
+        }
     },
     extraReducers: {
         [getPokemons.pending]: (state, action) => {
@@ -185,5 +191,5 @@ export const pokemonSlice = createSlice({
 });
 
 const { actions, reducer } = pokemonSlice;
-export const { changePage, searchQuery, typeQuery } = actions;
+export const { changePage, searchQuery, typeQuery,clearAllPokemon } = actions;
 export default reducer;
