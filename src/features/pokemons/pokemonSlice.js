@@ -80,6 +80,7 @@ export const pokemonSlice = createSlice({
         search: '',
         type: '',
         page: 1,
+        accumulatedPokemons:null,
     },
     reducers: {
         changePage: (state, action) => {
@@ -128,9 +129,13 @@ export const pokemonSlice = createSlice({
             state.loading = false;
             const { search, type } = state;
             if ((search || type) && state.page === 1) {
-                state.pokemons = action.payload;
+                    state.pokemons = action.payload;
             } else {
-                state.pokemons = [...state.pokemons, ...action.payload];
+                if(state.page* POKEMONS_PER_PAGE === state.pokemons.length) {
+                    state.pokemons = [...state.pokemons]
+                } else {
+                    state.pokemons = [...state.pokemons, ...action.payload];
+                }
             }
         },
         [getPokemonById.fulfilled]: (state, action) => {
