@@ -100,7 +100,6 @@ export const pokemonSlice = createSlice({
             state.pokemons=[];
             state.page = 1;
             state.type = "";
-            state.search = "";
         }
     },
     extraReducers: {
@@ -129,6 +128,10 @@ export const pokemonSlice = createSlice({
             state.loading = false;
             const { search, type } = state;
             if ((search || type) && state.page === 1) {
+                    state.pokemons = [];
+                    state.pokemons = action.payload;
+            } else if (state.page === 1) {
+                    state.pokemons = [];
                     state.pokemons = action.payload;
             } else {
                 if(state.page* POKEMONS_PER_PAGE === state.pokemons.length) {

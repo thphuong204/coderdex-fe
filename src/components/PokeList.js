@@ -8,7 +8,7 @@ import { Box, Button, Container, Grid, Stack } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PokeType } from './PokeType';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage, typeQuery ,clearAllPokemon, getPokemons} from '../features/pokemons/pokemonSlice';
+import { changePage, typeQuery ,clearAllPokemon} from '../features/pokemons/pokemonSlice';
 import { Link } from 'react-router-dom';
 import { pokemonTypes } from '../pokemonTypes';
 const styles = {
@@ -130,14 +130,13 @@ export default function PokeList() {
                         <Button 
                         onClick ={() => {
                             dispatch(clearAllPokemon());
-                            dispatch(getPokemons({ page}));
                         }}
                         sx= {{
                             color:"#fff",
                             fontWeight:"bold",
                             backgroundColor:"#729f3f"
                         }}
-                        >Clear Search
+                        >Clear Type
                         </Button>
                     </Grid>
 
